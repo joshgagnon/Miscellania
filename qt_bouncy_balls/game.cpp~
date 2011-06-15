@@ -1,0 +1,123 @@
+#include <QtGui>
+#include "game.h"
+#include <iostream>
+#include <sstream>
+#include <limits>
+#include <vector>
+#define NUMBALLS 1000
+
+Game::Game()
+{
+    width=1000;
+    height=600;
+    std::cout<<"Initiallizing"<<std::endl;
+    //*ball = (Ball*)malloc(100*sizeof *ball);
+    for(int i =0;i<NUMBALLS;i++){
+        balls[i] = new Ball();
+    }
+
+
+    background = QBrush(QColor(64, 32, 64));
+
+    textPen = QPen(Qt::white);
+    textFont.setPixelSize(25);
+    std::cout<<"Starting"<<std::endl;
+    usp = new USP();
+}
+
+//! [1]
+void Game::paint(QPainter *painter, QPaintEvent *event, int elapsed)
+{
+    painter->fillRect(event->rect(), background);
+    painter->save();
+    double minx=std::numeric_limits<double>::max();
+    double maxx=std::numeric_limits<double>::min();
+    double miny=minx,maxy=maxx;
+    double centroidx=0,centroidy=0;
+   // painter->scale(0.1,0.1);
+    //
+    for(int i=0;i<NUMBALLS;i++){
+            if(minx>balls[i]->getCenterX()) minx=balls[i]->getCenterX();
+            if(maxx<balls[i]->getCenterX()) maxx=balls[i]->getCenterX();
+            if(miny>balls[i]->getCenterY()) miny=balls[i]->getCenterY();
+            if(maxy<balls[i]->getCenterY()) maxy=balls[i]->getCenterY();
+            centroidx+=balls[i]->getCenterX();
+            centroidy+=balls[i]->getCenterY();
+        }
+    centroidx/=NUMBALLS;
+    centroidy/=NUMBALLS;
+
+ /* usp->updateUSP(balls,NUMBALLS,minx,miny,maxx,maxy);
+    std::vector<Ball*>* v;
+    while((v=usp->getNext())!=NULL){
+        for(int i=0;i<v->size();i++){
+            for(int j=i+1;j<v->size();j++){
+                if(v->at(i)->ballCollision(v->at(j))){
+                    v->at(i)->resolveCollision(v->at(j));
+                }
+            }
+        }
+    }*//*
+    for(int i=0;i<NUMBALLS;i++){
+        for(int j=i+1;j<NUMBALLS;j++){
+            balls[i]->gravity(balls[j]);
+            if(balls[i]->ballCollision(balls[j])) {
+                balls[i]->resolveCollision(balls[j]);
+            }
+        }
+    }
+
+*/
+
+/*
+    double scale;
+    if((maxx-minx)/width*height >  (maxy-miny)/height*width){
+
+        scale = (maxx-minx);
+
+    }
+    else{
+        scale = (maxy-miny);
+    }
+    //
+    std::cout<<(maxx-minx)<<" "<<(maxy-miny)<<std::endl;
+    painter->scale(width/scale,height/scale);
+   // painter->translate(scale/2,scale/2);*/
+    painter->translate(-centroidx+width/2,-centroidy+height/2);
+
+    for(int i =0;i<NUMBALLS;i++){
+        balls[i]->move(elapsed);
+        balls[i]->draw(painter);
+    }
+    //painter->translate(100, 100);
+//! [1]
+
+//! [2]
+
+    painter->setBrush(circleBrush);
+    painter->setPen(circlePen);
+    //painter->rotate(elapsed * 0.030);
+    //Vector* v = new Vector(1,1);
+    //qreal r = elapsed/1000.0;
+    /*int n = 300;
+    for (int i = 0; i < n; ++i) {
+        //painter->rotate(30);
+        qreal radius = 0 + 120.0*((i+r)/n);
+        qreal circleRadius = 1 + ((i+r)/n)*20;
+        painter->drawEllipse(QRectF(radius, -circleRadius,
+                                    circleRadius*2, circleRadius*2));
+    }*/
+    // painter->drawEllipse(QRectF(ball->,10+v->getY(),50,50));
+    // painter->drawEllipse(QRectF();
+    painter->restore();
+//! [2]
+
+//! [3]
+    //std::stringstream s;
+    //s<<1000.0/elapsed<<" FPS";
+    //s<<elapsed;
+    //painter->setPen(textPen);
+    //painter->setFont(textFont);
+   // painter->drawText(QRect(175, 450, 150, 25), Qt::AlignCenter,QString::fromStdString(s.str()) );
+}
+//! [3]0

@@ -1,0 +1,12 @@
+drop table if exists 'cartoons'
+
+create table 'cartoons' (
+       'id' INT NOT NULL AUTO_INCREMENT,
+       PRIMARY KEY(ID),
+       'show' VARCHAR(100) NOT NULL,
+       'season' INT NOT NULL,
+       'episode' INT NOT NULL,
+       'title' INT NOT NULL 
+)
+
+create table cartoons

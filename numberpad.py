@@ -17,8 +17,8 @@ def num_to_words(num):
     results = [''.join(x) for x in r]
     #print [''.join(x) for x in r]
     print [y for y in results if y in words]
-    words = get_words(6)
+    words = get_words()
     print [y for y in words if y in "\n".join(results)]
 
-num_to_words('272538789')
+num_to_words('0212313213')
 
