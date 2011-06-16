@@ -4,7 +4,7 @@
 #include <sstream>
 #include <limits>
 #include <vector>
-#define NUMBALLS 1000
+#define NUMBALLS 300
 
 Game::Game()
 {

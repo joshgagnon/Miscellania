@@ -210,7 +210,7 @@ class Game:
         self.tick=1000/60
         self.width=1000
         self.height=500
-        self.ballcount=10
+        self.ballcount=50
         self.maxspeed=5
         self.maxSize=30
         self.root=Tk()
