@@ -56,7 +56,7 @@ def connectdb():
     #conn = MySQLdb.connect (host = "127.0.0.1",port=3307,user = "yellow_koob",
     #                        passwd = "enohpelet",db = "yellow_koob")
     conn = MySQLdb.connect (host = "127.0.0.1",user = "root",
-                            passwd = "Se7en303",db = "koob")
+                            passwd = "",db = "koob")
     return conn.cursor()
 
 
